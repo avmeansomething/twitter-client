@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="TwitterClient.Pages.Tweet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TwitterClient.Pages"
+             mc:Ignorable="d" 
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             d:DesignHeight="100" d:DesignWidth="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontWeight="Bold" Margin="5" Text="{Binding Path=Author}" FontSize="16" FontFamily="Verdana"/>
+        <TextBlock Margin="5" Grid.Column="1" Text="{Binding Path=Date}" VerticalAlignment="Bottom" Opacity="0.7" FontSize="12" FontFamily="Verdana"/>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="5" Text="{Binding Path=TweetText}" TextWrapping="Wrap" FontSize="12"/>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="5" TextWrapping="Wrap" FontSize="12">
+                <Hyperlink Name="TweetHyperLink" RequestNavigate="TweetHyperLink_RequestNavigate">
+                    <TextBlock Name="TweetHyperLinkText"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <Image x:Name="img" Grid.ColumnSpan="1" Grid.Row="2" HorizontalAlignment="Left" Margin="5" Source="{Binding Path=TweetImage}" MaxHeight="400"/>
+
+            <Button x:Name="RetweetButton" Margin="1,2" Grid.Column="1" Grid.Row="2" Style="{DynamicResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="40" Click="RetweetButton_Click">
+                <Image Margin="7" Source="/Images/Retweet.png"/>
+                <Button.ToolTip>
+                    <ToolTip>
+                        Ретвитнуть
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
+        </Grid>
+        <Rectangle Grid.Row="3" VerticalAlignment="Bottom" Margin="0, 10, 0, 0" Height="1" Fill="#009789" Grid.ColumnSpan="2"/>
+    </Grid>
+</UserControl>

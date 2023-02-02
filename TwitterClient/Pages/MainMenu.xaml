@@ -1,0 +1,191 @@
+﻿<Window x:Class="TwitterClient.Pages.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TwitterClient.Pages"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        Title="TwitterClient" Height="550" Width="875" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="527*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Настройки" Height="25" FontFamily="Verdana" FontSize="14" Name="OpenSettings" Click="OpenSettings_Click"></MenuItem>
+            <MenuItem Header="Справка" Height="25" FontFamily="Verdana" FontSize="14" Name="OpenHelp" Click="OpenHelp_Click"></MenuItem>
+        </Menu>
+
+        <Rectangle 
+            HorizontalAlignment="Right" Width="1" Fill="#009789">
+        </Rectangle>
+
+        <Grid Margin="1,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" MinHeight="231"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,25,0,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" 
+                        Grid.ColumnSpan="3" 
+                        CornerRadius="25" 
+                        Margin="75,8,75,60"
+                        ClipToBounds="True" Grid.RowSpan="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=UserImage}" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+
+                <TextBlock Grid.Row="1"
+                           Grid.ColumnSpan="3"
+                           Text="{Binding Path=UserName}" 
+                           Opacity="0.7" 
+                           FontSize="27" 
+                           HorizontalAlignment="Center" Margin="44,23,44,0">
+                </TextBlock>
+
+                <Grid Grid.Row="2" 
+                      Grid.Column="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Твиты"
+                               FontSize="16"
+                               Margin="2,5"
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+
+                    <TextBlock Text="{Binding Path=UserTweets}"
+                               Name="TweetCount"
+                               Grid.Row="1" 
+                               FontSize="20" 
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Row="2" 
+                      Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Читаемые"
+                               FontSize="16"
+                               Margin="2,5"
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+
+                    <TextBlock Text="{Binding Path=UserFollowing}"
+                               Name="FollowingCount"
+                               Grid.Row="1" 
+                               FontSize="20" 
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+                </Grid>
+
+                <Grid Grid.Row="2" 
+                      Grid.Column="2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Читатели"
+                               FontSize="16"
+                               Margin="2,5"
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+
+                    <TextBlock Text="{Binding Path=UserFollowers}"
+                               Name="FollowersCount"
+                               Grid.Row="1" 
+                               FontSize="20" 
+                               HorizontalAlignment="Center" FontFamily="Verdana">
+                    </TextBlock>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" 
+                  HorizontalAlignment="Center" Margin="36,48,30,82" Width="224">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button Margin="20, 10" Grid.Row="0" HorizontalAlignment="Left" Content="Написать твит" FontSize="20" Name="ShowSendTweetComponents" Click="ShowSendTweetComponents_Click" UseLayoutRounding="False" FontFamily="Verdana"/>
+                <Button Margin="20, 10" Grid.Row="1" HorizontalAlignment="Left" Content="Мои твиты" FontSize="20" Name="ShowMyTweets"  Click="ShowMyTweets_Click" UseLayoutRounding="False" FontFamily="Verdana" Width="180"/>
+                <Button Margin="20, 10" Grid.Row="2" Content="Лента" FontSize="20" Name="ShowTweetsInLine"  Click="ShowTweetsInLine_Click" HorizontalAlignment="Left" FontFamily="Verdana" Width="180"/>
+            </Grid>
+        </Grid>
+
+        <ListBox Grid.Column="1" 
+                 Name="ListBoxTweets" 
+                 FontSize="20" 
+                 HorizontalContentAlignment="Stretch" 
+                 VirtualizingPanel.ScrollUnit="Pixel">
+        </ListBox>
+
+        <Grid Name="SendTweetGrid"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid HorizontalAlignment="Stretch"
+                  Margin="50, 0"
+                  VerticalAlignment="Center" Height="175">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="91*"/>
+                    <RowDefinition Height="59*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Name="TweetContentTextBox" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="0,0,-1,54" Grid.RowSpan="2" MaxLength="280" FontFamily="Verdana" Grid.Row="1" PreviewKeyDown="TweetContentTextBox_PreviewKeyDown">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            Новый твит
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+
+                <Button Margin="3,12,0,7" Grid.Row="2" Style="{DynamicResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left" Height="Auto" Width="40" Name="AddFileToTweet" Click="AddFileToTweet_Click">
+                    <Image Margin="8" Source="/Images/File.png"/>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Добавить фото
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <Image Grid.Row="2" Name="GreenMark" Margin="55,15,371,10" MouseEnter="GreenMark_MouseEnter" MouseDown="GreenMark_MouseDown" MouseLeave="GreenMark_MouseLeave"></Image>
+
+                <Border Background="#54afef" Name="NotificationBorder" VerticalAlignment="Top" Height="0" Margin="-50,-42,-50,0">
+                    <Label Name="LabelNotification" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Verdana" FontSize="18"></Label>
+                </Border>
+            </Grid>
+
+            <Button Margin="174,62,173,109" Grid.Row="1" Content="Твитнуть" HorizontalAlignment="Center" Name="SendTweet" Click="SendTweet_Click" Height="33" Width="180" FontFamily="Verdana" FontSize="20"/>
+        </Grid>
+    </Grid>
+</Window>
